@@ -1,0 +1,7 @@
+{
+  "name": "playlistShuffler",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

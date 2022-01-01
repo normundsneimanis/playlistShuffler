@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Genre Properties</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p *ngIf="errMess">{{errMess}}</p>
+  <ion-item *ngIf="genre">
+    <ion-avatar slot="start"><ion-img src="assets/images/krastmala2.jpg"></ion-img></ion-avatar>
+    <ion-label>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+              <h3>{{genre.name}}</h3>
+              <p>Number of directories: {{genre.playlists.length}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-button expand="block" type="submit" color="secondary">Add Genre</ion-button>
+    </ion-label>
+  </ion-item>
+  <div [hidden]="genre">
+    <p>Genre not set</p>
+  </div>
+</ion-content>

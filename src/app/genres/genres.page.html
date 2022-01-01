@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button color="secondary" [routerLink]="['/home']">Done</ion-button>
+    </ion-buttons>
+    <ion-title>Genres</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let genre of genres; let i = index">
+    <ion-avatar slot="start" routerDirection="forward" [routerLink]="['/pickdirectory', i]"><ion-img src="assets/images/krastmala2.jpg"></ion-img></ion-avatar>
+    <ion-label>
+      <ion-grid>
+        <ion-row>
+          <ion-col routerDirection="forward" [routerLink]="['/pickdirectory', i]">
+              <h3>{{genre.name}}</h3>
+              <p>Number of songs: {{genre.numSongs}}</p>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button color="secondary" (click)="deleteGenre(genre.name)"><ion-icon name="trash"></ion-icon></ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-label>
+  </ion-item>
+  <h3>Add Genres</h3>
+  <form [formGroup]="genreForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Number of songs in a row</ion-label>
+      <ion-range formControlName="numSongs" min="1" max="5" step="1" value="3" snaps pin color="dark">
+        <ion-icon slot="start" size="small" color="dark" name="volume-low"></ion-icon>
+        <ion-icon slot="end" color="dark" name="volume-high"></ion-icon>
+      </ion-range>
+    </ion-item>
+    <ion-button expand="block" type="submit" color="secondary" [disabled]="!genreForm.valid">Add Genre</ion-button>
+  </form>
+</ion-content>

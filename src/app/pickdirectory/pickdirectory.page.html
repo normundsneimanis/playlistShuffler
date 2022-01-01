@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button color="secondary" [routerLink]="['/pickproperties']">Done</ion-button>
+    </ion-buttons>
+    <ion-title>Pick Directory</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-text color="danger" *ngIf="errMess">
+    <p>{{errMess}}</p>
+  </ion-text>
+
+  <ion-list>
+    <ion-item *ngFor="let genre of genres; let i = index">
+      <ion-label class="ion-text-wrap" *ngIf="i == id">
+        <h2>{{genre.name}}</h2>
+        <!--h3>dirs: {{genre.playlists.length}}</h3-->
+        <ion-item [hidden]="genre.playlists.length != 0">
+          <ion-label color="secondary">Swipe directory left to reveal button</ion-label>
+        </ion-item>
+        <ion-item text-wrap *ngFor="let p of genre.playlists; let j = index">
+          <ion-label class="ion-text-wrap">{{p.name}}</ion-label> <!-- : {{p.path}} -->
+          <ion-note slot="end"><ion-button color="secondary" (click)="deletePlaylist(i, j)"><ion-icon name="trash"></ion-icon></ion-button></ion-note>
+        </ion-item>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-text color="medium" *ngIf="directories.length == 0" class="ion-padding ion-text-center">
+    <p>No documents found</p>
+  </ion-text>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let f of directories" #item>
+      <ion-item (click)="itemClicked(f)">
+        <ion-icon name="folder" slot="start" *ngIf="f.isDirectory"></ion-icon>
+        <ion-icon name="document" slot="start" *ngIf="!f.isDirectory"></ion-icon>
+        <ion-label text-wrap>
+          {{ f.name }}
+          <p>{{ f.fullPath }}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="start" *ngIf="f.isDirectory">
+        <ion-item-option (click)="selectThis(f, item)" color="primary">
+          <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item-options side="end" *ngIf="f.isDirectory">
+        <ion-item-option (click)="selectThis(f, item)" color="secondary">
+          <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

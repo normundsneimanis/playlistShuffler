@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button color="secondary" [routerLink]="['/home']">Done</ion-button>
+    </ion-buttons>
+    <ion-title>Pick Genre</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let genre of genres; let i = index" routerDirection="forward" [routerLink]="['/pickdirectory', i]">
+    <ion-avatar slot="start"><ion-img src="assets/images/krastmala2.jpg"></ion-img></ion-avatar>
+    <ion-label>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+              <h3>{{genre.name}}</h3>
+              <p>Number of playlists: {{genre.playlists.length}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-label>
+  </ion-item>
+</ion-content>

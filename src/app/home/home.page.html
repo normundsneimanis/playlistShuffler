@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-img src="assets/images/krastmala2.jpg" *ngIf="platform.isPortrait()"></ion-img>
+    <ion-title [hidden]="platform.isPortrait()">Pick Directory</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div [hidden]="errMess">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-lg="4">
+          <ion-card>
+            <ion-item routerDirection="forward" [routerLink]="['/genres']">
+              <ion-avatar slot="start"><ion-img src="assets/images/krastmala2.jpg"></ion-img></ion-avatar>
+              <ion-label>
+                <h3>Add Genres</h3>
+                <p>{{genresMessage}}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item routerDirection="forward" [routerLink]="['/pickproperties']">
+              <ion-avatar slot="start"><ion-img src="assets/images/krastmala2.jpg"></ion-img></ion-avatar>
+              <ion-label>
+                <h3>Add Playlists</h3>
+                <p>{{playlistsMessage}}</p>
+              </ion-label>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button expand="block" type="submit" color="secondary" [disabled]="!settingsOk" (click)="generate()">Generate Playlist</ion-button>
+    <p *ngIf="generateMessage">{{generateMessage}}</p>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
+  </div>
+</ion-content>
